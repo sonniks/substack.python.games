@@ -367,7 +367,7 @@ def get_player_choice(stdscr, player_name, player_type, cash, round_number, reve
         revealed_ratio = float(sum(revealed) / len(puzzle))  # Ensure floating-point calculation
         difficulty_threshold = {"e": 0.8, "m": 0.5, "h": 0.3}
         ta = float(difficulty_threshold.get(player_type, 1.0))  # Ensure proper threshold type
-        stdscr.addstr(16, 0, f"{player_name} Thinking: Revealed {revealed_ratio:.4f}, Threshold {ta:.4f}")
+        stdscr.addstr(16, 0, f"{player_name} Thinking...")
         stdscr.refresh()
         time.sleep(2)
         # Explicit comparison
@@ -375,7 +375,7 @@ def get_player_choice(stdscr, player_name, player_type, cash, round_number, reve
             stdscr.refresh()
             time.sleep(2)
             return "s"  # AI will attempt to solve if enough letters are revealed
-        return random.choice(valid_choices)
+        return "w"
 
 
 def spin_wheel(stdscr, round_number):
