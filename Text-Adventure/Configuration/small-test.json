@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "The Lost Dungeon",
+    "author": "Game Creator",
+    "turn_limit": 50,
+    "starting_health": 100,
+    "starting_position": [0, 0, 0]
+  },
+  "rooms": {
+    "0,0,0": {
+      "description": "You are in a dark stone chamber. The air is damp, and you find it hard to breathe.",
+      "exits": {
+        "N": "0,1,0",
+        "E": "1,0,0"
+      },
+      "visited": false,
+      "light": false,
+      "health_modifier": -1
+    },
+    "0,1,0": {
+      "description": "A long, narrow hallway with torches flickering on the walls. You notice a ladder that goes upwards.",
+      "exits": {
+        "S": "0,0,0",
+        "U": "0,1,1"
+      },
+      "visited": false,
+      "light": true,
+      "health_modifier": 0
+    },
+    "0,1,1": {
+      "description": "You find yourself in a small storage room. A faint glow from a crack in the ceiling provides some light.",
+      "exits": {
+        "D": "0,1,0",
+        "U": "0,1,2"
+      },
+      "visited": false,
+      "light": true,
+      "health_modifier": 0
+    },
+    "0,1,2": {
+      "description": "You step into a glowing chamber. A mystical energy fills the air. The exit to freedom lies ahead!",
+      "exits": {
+        "D": "0,1,1"
+      },
+      "visited": false,
+      "light": true,
+      "health_modifier": 0,
+      "win_room": true
+    }
+  },
+  "objects": {
+    "torch": {
+      "name": "Torch",
+      "description": "A wooden torch. Might help in dark places.",
+      "location": "0,0,0",
+      "open": false
+    },
+    "key": {
+      "name": "Rusty Key",
+      "description": "An old iron key with some corrosion.",
+      "location": "torch",
+      "open": false
+    },
+    "medicine": {
+      "name": "Medicine",
+      "description": "A small bottle of medicine. It looks like it could restore health.",
+      "location": "0,1,1",
+      "open": false
+    },
+    "portalkey": {
+      "name": "Portal Key",
+      "description": "A mystical key that unlocks the way to another dimension.",
+      "location": "0,1,1",
+      "open": false
+    }
+  }
+}
