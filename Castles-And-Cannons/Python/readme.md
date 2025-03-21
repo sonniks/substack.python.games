@@ -1,0 +1,1 @@
+For full details, including instructions on how to configure, see [Creating a 1980s Style Adventure Game](https://sonnik.substack.com/p/creating-a-1980s-style-adventure) on my [Substack](https://sonnik.substack.com)

@@ -1,0 +1,1 @@
+For full details, including the motivation behind the project and a video of gameplay, please refer to the [Circle of Cash](https://sonnik.substack.com/p/circle-of-cash) from my [Substack](https://sonnik.substack.com/).
