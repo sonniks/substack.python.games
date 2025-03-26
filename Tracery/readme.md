@@ -1,0 +1,1 @@
+Full article, including a video and instructions for gameplay, available at https://sonnik.substack.com/p/tracery
