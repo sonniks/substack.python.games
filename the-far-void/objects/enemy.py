@@ -5,21 +5,22 @@ from audio.sfx import play_tone
 
 
 enemies = []
+explosions = []
+boss_active = False
+boss_triggered_stage = None
+BOSS_WIDTH = 800
+BOSS_HEIGHT = 60
+ENEMY_SIZE = 30
+# Below, items for adjusting game difficulty
 speed = 2
 spawn_timer = 0
 spawn_interval = 1000
 score = 0
 lives = 3
-explosions = []
 stage = 1
-boss_active = False
 boss_hp = 0
 boss_pos = [0, -100]
 boss_speed = 1
-BOSS_WIDTH = 780
-BOSS_HEIGHT = 60
-boss_triggered_stage = None
-ENEMY_SIZE = 30
 SHIELD_REWARD_SCORE = 3000
 
 
@@ -42,7 +43,7 @@ def spawn_boss():
     boss_active = True
     boss_hp = 20 + stage * 2
     boss_speed = 1 + stage // 5
-    boss_pos = [10, -BOSS_HEIGHT]
+    boss_pos = [0, -BOSS_HEIGHT]
     boss_triggered_stage = stage
     play_tone(220, 0.5, volume=0.5, wave_type='saw')
 
@@ -53,7 +54,7 @@ def update_enemies():
     :return:
     """
     global spawn_timer, boss_pos, boss_active, boss_hp
-    if not boss_active and stage >= 2 and stage % 2 == 0 and boss_triggered_stage != stage:
+    if not boss_active and stage >= 3 and stage % 3 == 0 and boss_triggered_stage != stage:
         spawn_boss()
     if boss_active:
         boss_pos[1] += boss_speed

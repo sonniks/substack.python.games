@@ -7,6 +7,19 @@ from objects.enemy import draw_enemies, get_score, get_lives, get_stage
 from render.fonts import draw_text
 
 
+stars = []
+
+
+def init_starfield(num_stars=100):
+    """
+    Initialize the starfield with a specified number of stars.
+    :param num_stars:
+    :return:
+    """
+    global stars
+    stars = [[random.randint(0, 800), random.randint(0, 600)] for _ in range(num_stars)]
+
+
 def draw_frame(screen):
     """
     Draw the main game frame including player, lasers, enemies, and HUD elements.
@@ -17,11 +30,13 @@ def draw_frame(screen):
     draw_player(screen)
     draw_lasers(screen)
     draw_enemies(screen)
+    draw_starfield(screen)
     draw_text(screen, "THE FAR VOID", 24, 20, 20)
     draw_text(screen, f"STAGE: {get_stage()}", 20, 20, 50)
     draw_text(screen, f"SCORE: {get_score()}", 24, 600, 20)
     draw_text(screen, f"SHIELDS: {get_lives()}", 24, 600, 50)
     apply_crt_effect(screen)
+
 
 
 def draw_game_over(screen):
@@ -34,9 +49,26 @@ def draw_game_over(screen):
     overlay.set_alpha(180)
     overlay.fill((0, 0, 0))
     screen.blit(overlay, (0, 0))
-    draw_text(screen, "GAME OVER", 48, 250, 250, (255, 0, 0))
-    draw_text(screen, "Press ENTER to Restart or Q to Quit", 24, 180, 320, (255, 255, 255))
+    draw_text(screen, "GAME OVER", 48, 250, 220, (255, 0, 0))
+    draw_text(screen, f"STAGE: {get_stage()}", 24, 320, 300)
+    draw_text(screen, f"SCORE: {get_score()}", 24, 320, 340)
+    draw_text(screen, "Press ENTER to Restart or Q to Quit", 24, 180, 400, (255, 255, 255))
     apply_crt_effect(screen)
+
+
+def draw_starfield(screen):
+    """
+    Draw the starfield by rendering each star and updating their positions.
+    :param screen:
+    :return:
+    """
+    global stars
+    for star in stars:
+        pygame.draw.circle(screen, (80, 80, 80), star, 1)
+        star[1] += 1
+        if star[1] > 600:
+            star[0] = random.randint(0, 800)
+            star[1] = 0
 
 
 def apply_crt_effect(screen):
