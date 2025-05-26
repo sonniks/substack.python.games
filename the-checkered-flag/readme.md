@@ -1,0 +1,1 @@
+See full article https://sonnik.substack.com/p/a-top-down-python-racer-with-1970s
