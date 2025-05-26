@@ -1,0 +1,19 @@
+[
+  {
+    "mask": "levels/track1_mask.png",
+    "laps": 3
+  },
+  {
+    "mask": "levels/track2_mask.png",
+    "laps": 3
+  },
+    {
+    "mask": "levels/track3_mask.png",
+    "laps": 3
+  },
+    {
+    "mask": "levels/track4_mask.png",
+    "laps": 3
+  }
+
+]
