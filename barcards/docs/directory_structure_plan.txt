@@ -1,0 +1,31 @@
+barcards/
+│
+├── assets/
+│   ├── fonts/
+│   │   └── 8-bit-pusab.ttf       # obtained from dafont.com
+│   ├── images/
+│   │   └── Full-Deck-Of-Ornate-Playing-Cards.svg  # https://openclipart.org/detail/226207/full-deck-of-ornate-playing-cards
+│   │   └── splashbackground.png
+│   └── sounds/
+│       └── piano-groove.mod      # MOD tracker music file (downloadable from modarchive.org)
+│       └── carddeal.wav          # woosh sound effect for card dealing
+│
+├── docs/
+│
+├── games/
+│   ├── blackjack.py
+│   └── poker.py
+│
+├── hud.py                           # HUD module for displaying bankroll and UI elements
+├── launchpad.py                     # Main game launcher to select between games
+├── music.py                      # Music loader/controller with graceful failure if missing
+├── shuffler.py                      # Utility to shuffle decks
+├── svg_parser.py                    # Converts SVG deck into card objects
+├── text_ui.py                       # CLI interface for interacting with player
+│
+├── tests/
+│   └── test_svg_parser.py
+│
+├── README.md
+└── requirements.txt
+
