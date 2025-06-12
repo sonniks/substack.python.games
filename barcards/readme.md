@@ -1,1 +1,1 @@
-see https://sonnik.substack.com for more details. (article to be published 6/12/2025)
+see https://open.substack.com/pub/sonnik/p/build-your-own-bar-top-casino for more details.
