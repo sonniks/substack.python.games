@@ -1,0 +1,11 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "First Floor",
+      "map": "assets/maps/level1.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/placeholder.mod"
+    }
+  ]
+}

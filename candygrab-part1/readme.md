@@ -1,0 +1,1 @@
+See further details at https://sonnik.substack.com/p/pythonpygame-sprite-sheet-savvy
