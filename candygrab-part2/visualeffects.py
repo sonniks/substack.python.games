@@ -1,21 +1,25 @@
 # visualeffects.py
 
+
 import pygame
 
+
 def hue_shift_sprite(surface, shift):
+    """
+    Shift the hue of a Pygame surface by a given amount.
+    :param surface:
+    :param shift:
+    :return:
+    """
     import colorsys
     import pygame.surfarray
-
     surface = surface.convert_alpha()
     width, height = surface.get_size()
-
     # Extract both RGB and Alpha
     rgb_array = pygame.surfarray.array3d(surface).astype(float)
     alpha_array = pygame.surfarray.array_alpha(surface)
-
     # Prepare output array
     new_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-
     for x in range(width):
         for y in range(height):
             r, g, b = rgb_array[x, y] / 255.0
@@ -27,6 +31,5 @@ def hue_shift_sprite(surface, shift):
             r2, g2, b2 = colorsys.hsv_to_rgb(h, s, v)
             rgb = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)
             new_surface.set_at((x, y), rgb)
-
     return new_surface
 

@@ -22,18 +22,37 @@ class Player:
         self.facing_left = False
         self.name = "Player"
 
+
     def load_player_sprites(self):
+        """
+        Load player sprites from the spritesheet.
+        :return:
+        """
         sheet = pygame.image.load("assets/sprites/sheet.png").convert_alpha()
         return [sheet.subsurface(pygame.Rect(i * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE)) for i in range(4)]
 
+
     def find_spawn(self, map_data):
+        """
+        Find the spawn position of the player in the map data.
+        :param map_data:
+        :return:
+        """
         for y, row in enumerate(map_data):
             for x, char in enumerate(row):
                 if char == 'P':
                     return x * TILE_SIZE, y * TILE_SIZE
         return 0, 0
 
+
     def update(self, dx, dy, map_data):
+        """
+        Update the player's position based on input and map data.
+        :param dx:
+        :param dy:
+        :param map_data:
+        :return:
+        """
         self.timer += 1
         maybe_snap_to_floor(self, map_data)
         if self.timer % 10 == 0:
@@ -52,6 +71,12 @@ class Player:
 
 
     def draw(self, surface, offset_y=0):
+        """
+        Draw the player sprite on the given surface at the player's position.
+        :param surface:
+        :param offset_y:
+        :return:
+        """
         sprite = self.sprites[self.frame]
         if self.facing_left:
             sprite = pygame.transform.flip(sprite, True, False)

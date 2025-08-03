@@ -14,6 +14,10 @@ UI_OFFSET = 96
 
 
 def setup_screen():
+    """
+    Initialize the pygame screen and clock.
+    :return:
+    """
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Candy Grab Part 2")
@@ -21,6 +25,11 @@ def setup_screen():
 
 
 def load_assets(level_path):
+    """
+    Load the level data, tileset, and map from the specified path.
+    :param level_path:
+    :return:
+    """
     level = load_level_data(level_path)
     sprites = load_tileset(level['lookup'])
     map_data = load_map(level['map'])
@@ -28,6 +37,10 @@ def load_assets(level_path):
 
 
 def handle_events():
+    """
+    Handle pygame events such as quitting the game.
+    :return:
+    """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -35,12 +48,26 @@ def handle_events():
 
 
 def handle_input(player, map_data):
+    """
+    Handle player input for movement.
+    :param player:
+    :param map_data:
+    :return:
+    """
     keys = pygame.key.get_pressed()
     dx, dy = get_movement_input(keys)
     player.update(dx, dy, map_data)
 
 
 def render(screen, tile_surface, player, villains):
+    """
+    Render the game screen with the player and villains.
+    :param screen:
+    :param tile_surface:
+    :param player:
+    :param villains:
+    :return:
+    """
     screen.fill((0, 0, 0))
     screen.blit(tile_surface, (0, UI_OFFSET))
     player.draw(screen, offset_y=UI_OFFSET)
@@ -50,6 +77,12 @@ def render(screen, tile_surface, player, villains):
 
 
 def find_all_villain_spawns(map_data, char='V'):
+    """
+    Find all spawn positions for a given character in the map data.
+    :param map_data:
+    :param char:
+    :return:
+    """
     positions = []
     for y, row in enumerate(map_data):
         for x, val in enumerate(row):
@@ -59,6 +92,10 @@ def find_all_villain_spawns(map_data, char='V'):
 
 
 def main():
+    """
+    Main function to set up the game and run the main loop.
+    :return:
+    """
     screen, clock = setup_screen()
     level, sprites, map_data = load_assets("config/levels.json")
     tile_surface = build_tilemap(map_data, sprites)

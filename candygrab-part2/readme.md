@@ -5,6 +5,8 @@ Changes between part 1 and part 2:
 -Player "looks" left or right depending on movement direction
 -Ghost feet/whisps animated (albeit poorly)
 -Console logger for debugging
+-Add villain spawn and logic
+-Add candy spawn
 -Add tile x,y coordinate debug
 -Add common movement.py 
--Add visualeffects (hue shift for villain)
+-Add visual effects (hue shift for villain)

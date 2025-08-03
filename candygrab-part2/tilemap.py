@@ -36,6 +36,7 @@ def build_tilemap(map_data, tile_lookup):
                 surface.blit(label, (x * TILE_SIZE + 2, y * TILE_SIZE + 2))
     return surface
 
+
 def sheet_width():
     """
     Get the width of the spritesheet.
@@ -44,7 +45,14 @@ def sheet_width():
     image = pygame.image.load(SPRITESHEET_PATH)
     return image.get_width()
 
+
 def find_all_villain_spawns(map_data, char):
+    """
+    Find all spawn positions for a given character in the map data.
+    :param map_data:
+    :param char:
+    :return:
+    """
     positions = []
     for y, row in enumerate(map_data):
         for x, val in enumerate(row):
