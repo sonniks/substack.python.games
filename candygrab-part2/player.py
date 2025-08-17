@@ -66,7 +66,7 @@ class Player:
             self.facing_left = False
         new_x, new_y, tx, ty, cx, cy = get_target_tile(self, dx, dy)
         # conlog(f"Target tile: moving to ({tx}, {ty}) from ({cx}, {cy})")
-        # log_surrounding_tiles(self, map_data)
+        log_surrounding_tiles(self, map_data)
         try_move(self, dx, dy, map_data)
 
 

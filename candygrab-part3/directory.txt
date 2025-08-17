@@ -1,0 +1,34 @@
+game_project/
+├── assets/
+│   ├── fonts/
+│   │   └── 8-bit-pusab.ttf          # Game display font
+│   │   └── Eight-Bit Madness.ttf    # Game display font (New)
+│   ├── maps/
+│   │   └── level1.txt               # 25x18 text map
+│   │   └── level2.txt               # 25x18 text map
+│   ├── music/
+│   │   └── placeholder.mod          # MOD music file (placeholder for now)
+│   ├── sprites/
+│   │   └── sheet.png                # Sprite sheet (32x32 tiles)
+│   └── lookups/
+│       └── tiles.csv                # Character-to-sprite lookup (e.g., 'P,0,2')
+├── config/
+│   └── levels.json                  # Level configuration
+├── main.py                          # Entry point
+├── game_init.py                     # Ancillary initialization
+├── display.py                       # Refresh screen, animations
+├── combat.py                        # Player v Villain logic
+├── fire.py                          # Handles player fire logic and animation
+├── scanner.py                       # Checks for location of each game element
+├── loader.py                        # Load JSON, maps, lookups
+├── visualeffects.py                 # Special effects like hue shift
+├── tilemap.py                       # Builds surface from text map and sprites
+├── player.py                        # Handles player logic and animation
+├── villain.py                       # Handles villain logic and animation
+├── movement.py                      # Handles movement logic
+├── scoredisplay.py                  # Handles display of score and lives
+├── spritesheet.py                   # Slices 32x32 tiles from sprite sheet
+├── input.py                         # WASD / Arrow key input handling
+├── logger.py                        # Handles debug logging
+├── README.md
+└── requirements.txt
