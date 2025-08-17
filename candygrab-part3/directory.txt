@@ -14,21 +14,21 @@ game_project/
 │       └── tiles.csv                # Character-to-sprite lookup (e.g., 'P,0,2')
 ├── config/
 │   └── levels.json                  # Level configuration
-├── main.py                          # Entry point
-├── game_init.py                     # Ancillary initialization
-├── display.py                       # Refresh screen, animations
 ├── combat.py                        # Player v Villain logic
+├── display.py                       # Refresh screen, animations
 ├── fire.py                          # Handles player fire logic and animation
-├── scanner.py                       # Checks for location of each game element
+├── game_init.py                     # Ancillary initialization
+├── input.py                         # WASD / Arrow key input handling
 ├── loader.py                        # Load JSON, maps, lookups
-├── visualeffects.py                 # Special effects like hue shift
-├── tilemap.py                       # Builds surface from text map and sprites
-├── player.py                        # Handles player logic and animation
-├── villain.py                       # Handles villain logic and animation
+├── logger.py                        # Handles debug logging
+├── main.py                          # Entry point
 ├── movement.py                      # Handles movement logic
+├── player.py                        # Handles player logic and animation
+├── scanner.py                       # Checks for location of each game element
 ├── scoredisplay.py                  # Handles display of score and lives
 ├── spritesheet.py                   # Slices 32x32 tiles from sprite sheet
-├── input.py                         # WASD / Arrow key input handling
-├── logger.py                        # Handles debug logging
+├── tilemap.py                       # Builds surface from text map and sprites
+├── villain.py                       # Handles villain logic and animation
+├── visualeffects.py                 # Special effects like hue shift
 ├── README.md
 └── requirements.txt

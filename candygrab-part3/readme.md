@@ -1,6 +1,14 @@
 See details for part 1 ... https://sonnik.substack.com/p/pythonpygame-sprite-sheet-savvy
 
-Changes between part 1 and part 2:
+
+**Changes between part 2 and part 3:**
+
+-Candy collection logic  
+-Villain collision logic  
+-Player attack logic  
+-Score display (lives remaining, stage indicator)
+
+**Changes between part 1 and part 2:**
 
 -Player "looks" left or right depending on movement direction
 -Ghost feet/whisps animated (albeit poorly)
@@ -10,3 +18,4 @@ Changes between part 1 and part 2:
 -Add tile x,y coordinate debug
 -Add common movement.py 
 -Add visual effects (hue shift for villain)
+
