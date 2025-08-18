@@ -1,0 +1,24 @@
+game_project/
+├── assets/
+│   ├── maps/
+│   │   └── level1.txt               # 25x18 text map
+│   ├── music/
+│   │   └── placeholder.mod          # MOD music file (placeholder for now)
+│   ├── sprites/
+│   │   └── sheet.png                # Sprite sheet (32x32 tiles)
+│   └── lookups/
+│       └── tiles.csv                # Character-to-sprite lookup (e.g., 'P,0,2')
+├── config/
+│   └── levels.json                  # Level configuration
+├── main.py                          # Entry point
+├── loader.py                        # Load JSON, maps, lookups
+├── visualeffects.py                 # Special effects like hue shift
+├── tilemap.py                       # Builds surface from text map and sprites
+├── player.py                        # Handles player logic and animation
+├── villain.py                       # Handles villain logic and animation
+├── movement.py                      # Handles movement logic
+├── spritesheet.py                   # Slices 32x32 tiles from sprite sheet
+├── input.py                         # WASD / Arrow key input handling
+├── logger.py                        # Handles debug logging
+├── README.md
+└── requirements.txt
