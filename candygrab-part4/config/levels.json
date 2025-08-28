@@ -1,0 +1,11 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "Second Floor",
+      "map": "assets/maps/levelz.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/placeholder.mod"
+    }
+  ]
+}
