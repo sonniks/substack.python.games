@@ -20,10 +20,13 @@ See details for part 1 ... https://sonnik.substack.com/p/pythonpygame-sprite-she
 -Add visual effects (hue shift for villain)
 
 **Part 4:**
--Need to add music
--Clean Code
--Add more levels
--Re-add villains
--Test original level 1 after AI movement fix
--Stage Interstitial Screen
+-Need to add music (done)  
+-Villains are getting stuck sometimes when approaching ladders  
+-Player fatality  
+-Clean Code  
+-Add more levels  
+-Re-add villains (done)  
+-Villains are faster on level re-use (done, but may need to make less aggressive)  
+-Test original level 1 after AI movement fix (done)   
+-Stage Interstitial Screen  
 -Initial Load Screen

@@ -60,7 +60,7 @@ def find_all_villain_spawns(map_data, char='V'):
     return positions
 
 
-def spawn_villains(map_data):
+def spawn_villains(map_data, speed_multiplier=1.0):
     """
     Spawn villains at all designated spawn points in the map data.
     :param map_data:
@@ -71,7 +71,8 @@ def spawn_villains(map_data):
     villains = []
     for i, pos in enumerate(spawns):
         hue_shift = (i * 0.2) % 1.0
-        villains.append(Villain(map_data, pos, hue_shift=hue_shift, index=i, total=total))
+        villains.append(
+            Villain(map_data, pos, hue_shift=hue_shift, index=i, total=total, speed_multiplier=speed_multiplier))
     return villains
 
 
@@ -81,7 +82,10 @@ def init_game():
     :return:
     """
     screen, clock = setup_screen()
-    _, tile_lookup, map_data = load_assets("config/levels.json")
+    level = load_level_data("config/levels.json")
+    map_data = load_map(level["map"])
+    tile_lookup = load_tileset(level["lookup"])
+    hue_shift = level.get("floor_hue_shift", 0.0)
     tile_surface = build_tilemap(map_data, tile_lookup)
     player = Player(map_data)
     score_display = ScoreDisplay(SCREEN_WIDTH)

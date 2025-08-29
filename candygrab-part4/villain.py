@@ -15,10 +15,10 @@ DISABLE_DURATION_MS = 30000
 
 
 class Villain:
-    def __init__(self, map_data, spawn_xy, hue_shift=0, index=0, total=1):
+    def __init__(self, map_data, spawn_xy, hue_shift=0, index=0, total=1, speed_multiplier=1.0):
         self.index = index
         self.name = f"Villain{index}"
-        self.MOVE_SPEED = self.compute_speed(index, total)
+        self.MOVE_SPEED = self.compute_speed(index, total, speed_multiplier)
         self.x, self.y = spawn_xy
         self.facing_left = False
         self.timer = 0
@@ -31,12 +31,15 @@ class Villain:
         # For maintaining committed direction of travel
         self.last_dx = 0
         self.last_dy = 0
+        self.tile_x = int(self.x // TILE_SIZE) # spawn location
+        self.tile_y = int(self.y // TILE_SIZE) # spawn location
 
-    def compute_speed(self, index, total):
+
+    def compute_speed(self, index, total, speed_multiplier=1.0):
         min_speed = 1.2
         max_speed = 1.8
         t = index / max(1, total - 1)
-        return min_speed + t * (max_speed - min_speed)
+        return (min_speed + t * (max_speed - min_speed)) * speed_multiplier
 
     def _load_villain_anim(self, hue_shift):
         sheet = pygame.image.load("assets/sprites/sheet.png").convert_alpha()
@@ -91,7 +94,7 @@ class Villain:
 
     def _decide_movement(self, player, cx, cy, map_data):
         st = get_surrounding_tiles(self, map_data)
-        if self.delta_to_align_x() > 1 and st['right'] != 'B':
+        if self.delta_to_align_x() > 1 and st['right'] != 'B' and st['left'] != 'B':
             if self.last_dx != 0 :
                 conlog("not aligned x")
                 try_move(self, self.last_dx, 0, map_data)
@@ -137,6 +140,19 @@ class Villain:
             # idax = 0
             # iday = -1 if dy < 0 else 1 if dy > 0 else 0
         conlog(f"{self.name} final intended direction: idax={idax}, iday={iday}")
+        if st['locen'] == " ":
+            conlog(f"ALERT {self.name} is over empty space, cannot move.")
+            if st['loleft'] != " ":
+                cx, cy = get_tile_position(self)
+                conlog(f"{self.name} snapping left to ({cx - 1}, {cy})")
+                self.teleport_to_tile(cx - 1, cy)
+                return
+
+            if st['loright'] != " ":
+                cx, cy = get_tile_position(self)
+                conlog(f"{self.name} snapping right to ({cx + 1}, {cy})")
+                self.teleport_to_tile(cx + 1, cy)
+                return
         # At this point you can proceed with movement attempt based on idax/iday
         self.last_dx = idax
         self.last_dy = iday
@@ -158,6 +174,15 @@ class Villain:
                 conlog(f"{self.name} moved vertically: iday={iday}")
             return
         conlog(f"{self.name} did not move this frame.")
+
+    def teleport_to_tile(self, tile_x, tile_y):
+        """
+        Instantly move the villain to a specific tile position.
+        :param tile_x: Tile X-coordinate
+        :param tile_y: Tile Y-coordinate
+        """
+        self.x = tile_x * TILE_SIZE
+        self.y = tile_y * TILE_SIZE
 
     def draw(self, surface, offset_y=0):
         if self.is_disabled():

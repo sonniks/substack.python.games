@@ -6,6 +6,7 @@ from loader import TILE_SIZE
 from spritesheet import load_spritesheet
 from movement import get_tile_position
 from scanner import _safe_cell
+from visualeffects import hue_shift_sprite
 
 
 SPRITESHEET_PATH = "assets/sprites/sheet.png"
@@ -13,45 +14,34 @@ SHOW_TILE_COORDS = True
 
 
 def build_tilemap(map_data, tile_lookup):
-    """
-    Build a surface representing the tilemap based on map_data and tile_lookup.
-    :param map_data:
-    :param tile_lookup:
-    :return:
-    """
     tiles = load_spritesheet(SPRITESHEET_PATH)
     surface = pygame.Surface(
         (len(map_data[0]) * TILE_SIZE, len(map_data) * TILE_SIZE + 96),
         pygame.SRCALPHA
     )
     font = pygame.font.SysFont("consolas", 10, bold=True) if SHOW_TILE_COORDS else None
-    # Precompute columns per row in sheet
     cols_in_sheet = sheet_width() // TILE_SIZE
+
     def _coords_for(ch):
         entry = tile_lookup.get(ch)
         if entry is None:
             return None
-        if isinstance(entry, dict):
-            coords = entry.get('coords')
-            if coords is None or len(coords) < 2:
-                return None
-            sx, sy = coords[0], coords[1]
-        else:
-            # assume tuple/list
-            if len(entry) < 2:
-                return None
-            sx, sy = entry[0], entry[1]
-        return int(sx), int(sy)
+        coords = entry.get('coords') if isinstance(entry, dict) else entry
+        if coords is None or len(coords) < 2:
+            return None
+        return int(coords[0]), int(coords[1])
+
     for y, row in enumerate(map_data):
         for x, ch in enumerate(row):
             if ch in ('P', 'V'):
-                continue  # don't draw spawn markers
+                continue
             pos = _coords_for(ch)
             if pos is None:
                 continue
             sx, sy = pos
             tile_index = sy * cols_in_sheet + sx
-            surface.blit(tiles[tile_index], (x * TILE_SIZE, y * TILE_SIZE))
+            tile = tile_lookup[ch].get('surface') or tiles[tile_index]
+            surface.blit(tile, (x * TILE_SIZE, y * TILE_SIZE))
             if SHOW_TILE_COORDS and font:
                 label = font.render(f"{x},{y}", True, (255, 255, 0))
                 surface.blit(label, (x * TILE_SIZE + 2, y * TILE_SIZE + 2))

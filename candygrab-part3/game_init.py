@@ -29,7 +29,7 @@ def setup_screen():
     """
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Candy Grab Part 3")
+    pygame.display.set_caption("Candy Grab Part 4")
     return screen, pygame.time.Clock()
 
 
