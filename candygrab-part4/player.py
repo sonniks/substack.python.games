@@ -1,6 +1,7 @@
 # player.py
 
 import pygame
+from logger import conlog
 from loader import TILE_SIZE
 from movement import (
     get_tile_position,
@@ -121,6 +122,7 @@ class Player:
             self.facing_left = False
         _nx, _ny, _tx, _ty, _cx, _cy = get_target_tile(self, dx, dy)
         # log_surrounding_tiles(self, map_data)
+        conlog("Player trying move")
         try_move(self, dx, dy, map_data)
 
 

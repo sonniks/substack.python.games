@@ -69,7 +69,7 @@ def _score_for_char(ch: str, tile_lookup: Any) -> int:
 
 
 def scan_world(map_data: List[List[str]], player, villains: Iterable, tile_lookup,
-               hud, candy_chars: Set[str] = None) -> None:
+               hud, candy_chars: Set[str] = None, candy_sound =     None) -> None:
     """
     Scan the game world for player, villains, and candy states.
     :param map_data:
@@ -118,6 +118,9 @@ def scan_world(map_data: List[List[str]], player, villains: Iterable, tile_looku
         map_data[pcy][pcx] = ' '  # remove candy
         hud.score += gained
         conlog(f"[Scanner] Player collected '{pcell}' for +{gained}. Score={hud.score}")
+        # If you have a helper to consume candy, use it
+        if candy_sound:
+            candy_sound.play()
         # After removal, check if any candy remains
         remaining = _find_all_candy_tiles(map_data, candy_chars)
         if not remaining:

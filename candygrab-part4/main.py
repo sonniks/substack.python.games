@@ -10,7 +10,7 @@ from tilemap import build_tilemap, sheet_width
 from scoredisplay import ScoreDisplay
 from game_init import setup_screen, HUDState, spawn_villains
 from player import Player
-from display import render_frame, update_villains, update_beams
+from display import render_frame, update_villains, update_beams, show_level_complete
 from scanner import scan_world
 from combat import handle_firing, check_and_trigger_player_death
 from input import get_movement_input
@@ -43,6 +43,8 @@ def main():
 
     pygame.mixer.init()
     MUSIC_VOLUME = float(os.getenv("MUSIC_VOLUME", "0.25"))
+    CANDY_SOUND = pygame.mixer.Sound("assets/sounds/grab-candy.wav")
+    CANDY_SOUND.set_volume(0.5)  # optional
 
     with open("config/levels.json") as f:
         all_levels = json.load(f)["levels"]
@@ -91,7 +93,7 @@ def main():
     villains = spawn_villains(map_data)
     beams = []
 
-    loop_count = 0
+    loop_count = 3
     while True:
         fire_pressed = handle_events()
         keys = pygame.key.get_pressed()
@@ -104,11 +106,11 @@ def main():
         update_beams(beams, now)
         check_and_trigger_player_death(player, villains, map_data, now)
 
-        scan_world(map_data, player, villains, tile_lookup, hud)
+        scan_world(map_data, player, villains, tile_lookup, hud, candy_sound=CANDY_SOUND)
 
         # Check for level completion (no candy)
         if not any(ch in row for row in map_data for ch in {'@', '!', '#', '$'}):
-            print("[Main] Level complete!")
+            show_level_complete(screen, hud.level_number, hud.lives, MUSIC_VOLUME)
             # TODO: Add fadeout or transition effect here
 
             current_level_index += 1

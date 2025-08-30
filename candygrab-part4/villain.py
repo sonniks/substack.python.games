@@ -69,6 +69,19 @@ class Villain:
 
     def update(self, player, map_data):
         self.timer += 1
+        now = pygame.time.get_ticks()
+        # Wake-up warning 2 seconds before recovery
+        if self.is_disabled() and self.disabled_until - now <= 1000:
+            if not hasattr(self, "_wake_warned") or not self._wake_warned:
+                if not hasattr(self, "_wake_sound"):
+                    self._wake_sound = pygame.mixer.Sound("assets/sounds/villain-wake.wav")
+                    self._wake_sound.set_volume(0.6)
+                self._wake_sound.play()
+                self._wake_warned = True
+        # Clear disabled state if expired
+        if self.disabled_until and now >= self.disabled_until:
+            self.disabled_until = 0
+            self._wake_warned = False  # reset for next disable cycle
         if self.is_disabled():
             return
         maybe_snap_to_floor(self, map_data)
@@ -79,6 +92,7 @@ class Villain:
         if self.handle_floor_collision(current_tile, cx, cy):
             return
         self._decide_movement(player, cx, cy, map_data)
+
 
     def delta_to_align_x(self) -> int:
         """
@@ -94,14 +108,19 @@ class Villain:
 
     def _decide_movement(self, player, cx, cy, map_data):
         st = get_surrounding_tiles(self, map_data)
-        if self.delta_to_align_x() > 1 and st['right'] != 'B' and st['left'] != 'B':
+        conlog(f"{self.name} at tile ({cx},{cy}) sees: {st['locen']} {ord(st['locen'])}")
+        if self.delta_to_align_x() > 1 and st['right'] != 'B' and st['left'] != 'B' and st['locen'] != ' ':
             if self.last_dx != 0 :
-                conlog("not aligned x")
+                #conlog("not aligned x")
                 try_move(self, self.last_dx, 0, map_data)
+            return
+        if st['locen'] == ' ':
+            conlog(f"{self.name} trying to snap to floor")
+            self.choose_snap(map_data)
             return
         if self.delta_to_align_y() > 1:
             if self.last_dy != 0:
-                conlog("not aligned y")
+                #conlog("not aligned y")
                 try_move(self, 0, self.last_dy, map_data)
             return
         # Determine player offset (tile-based)
@@ -114,12 +133,12 @@ class Villain:
         prefer_horizontal = abs(dx) >= abs(dy)
         idax = -1 if dx < 0 else 1 if dx > 0 else 0
         iday = -1 if dy < 0 else 1 if dy > 0 else 0
-        conlog(f"{self.name} at ({cx},{cy}) sees Player at ({pcx},{pcy}) => dx={dx}, dy={dy}")
-        conlog(f"{self.name} center tile: '{center_tile}' | on_ladder={on_ladder}")
-        conlog(f"{self.name} initial intended direction: idax={idax}, iday={iday}")
+        #conlog(f"{self.name} at ({cx},{cy}) sees Player at ({pcx},{pcy}) => dx={dx}, dy={dy}")
+        #conlog(f"{self.name} center tile: '{center_tile}' | on_ladder={on_ladder}")
+        #conlog(f"{self.name} initial intended direction: idax={idax}, iday={iday}")
         # Restrict vertical if not on ladder
         if not on_ladder and iday != 0:
-            conlog(f"{self.name} cannot move vertically (not on ladder), switching to horizontal.")
+            # conlog(f"{self.name} cannot move vertically (not on ladder), switching to horizontal.")
             iday = 0
             idax = -1 if dx < 0 else 1 if dx > 0 else 0
         # Restrict horizontal if on ladder
@@ -136,23 +155,13 @@ class Villain:
             elif  iday == -1 and center_tile in {'U', 'E', 'L', 'T'}:
                 iday = -1
                 idax = 0
-            conlog(f"{self.name} is on a ladder; switching to vertical climb.")
+            # conlog(f"{self.name} is on a ladder; switching to vertical climb.")
             # idax = 0
             # iday = -1 if dy < 0 else 1 if dy > 0 else 0
-        conlog(f"{self.name} final intended direction: idax={idax}, iday={iday}")
+        # conlog(f"{self.name} final intended direction: idax={idax}, iday={iday}")
         if st['locen'] == " ":
             conlog(f"ALERT {self.name} is over empty space, cannot move.")
-            if st['loleft'] != " ":
-                cx, cy = get_tile_position(self)
-                conlog(f"{self.name} snapping left to ({cx - 1}, {cy})")
-                self.teleport_to_tile(cx - 1, cy)
-                return
-
-            if st['loright'] != " ":
-                cx, cy = get_tile_position(self)
-                conlog(f"{self.name} snapping right to ({cx + 1}, {cy})")
-                self.teleport_to_tile(cx + 1, cy)
-                return
+            self.choose_snap(map_data)
         # At this point you can proceed with movement attempt based on idax/iday
         self.last_dx = idax
         self.last_dy = iday
@@ -173,7 +182,25 @@ class Villain:
             if moved:
                 conlog(f"{self.name} moved vertically: iday={iday}")
             return
-        conlog(f"{self.name} did not move this frame.")
+        # conlog(f"{self.name} did not move this frame.")
+
+
+    def choose_snap(self, map_data):
+        st = get_surrounding_tiles(self, map_data)
+        cx, cy = get_tile_position(self)
+        conlog(f"ALERT {self.name} is over empty space, cannot move.")
+        if st['loleft'] != " ":
+            conlog(f"{self.name} snapping left to ({cx - 1}, {cy})")
+            self.teleport_to_tile(cx - 1, cy)
+            return
+        if st['loright'] != " ":
+            conlog(f"{self.name} snapping right to ({cx + 1}, {cy})")
+            self.teleport_to_tile(cx + 1, cy)
+            return
+        if st['upcen'] != " ":
+            conlog(f"{self.name} snapping right to ({cx}, {cy - 1})")
+            self.teleport_to_tile(cx, cy - 1)
+            return
 
     def teleport_to_tile(self, tile_x, tile_y):
         """

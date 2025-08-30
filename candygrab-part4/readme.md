@@ -21,12 +21,14 @@ See details for part 1 ... https://sonnik.substack.com/p/pythonpygame-sprite-she
 
 **Part 4:**
 -Need to add music (done)  
--Villains are getting stuck sometimes when approaching ladders  
+-Villains are getting stuck sometimes when approaching ladders (fixed?)
 -Player fatality  
 -Clean Code  
 -Add more levels  
 -Re-add villains (done)  
 -Villains are faster on level re-use (done, but may need to make less aggressive)  
 -Test original level 1 after AI movement fix (done)   
--Stage Interstitial Screen  
+-Stage Interstitial Screen (done)  
+-Add sound effects (done)
+-fix combat safe zone
 -Initial Load Screen

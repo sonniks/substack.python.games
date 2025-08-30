@@ -1,11 +1,13 @@
 # combat.py
 
-
+import pygame
 from fire import FireBeam
 from scanner import NON_ELIGIBLE
 from movement import get_tile_position
 from tilemap import player_cell
 from logger import conlog
+
+FIRE_SOUND = None
 
 
 def handle_firing(player, map_data, villains, beams, now_ms, hud):
@@ -31,6 +33,11 @@ def handle_firing(player, map_data, villains, beams, now_ms, hud):
         hud.score += gained
         conlog(f"[Combat] Disabled {newly_disabled} robot(s); +{gained} points. Total={hud.score}")
     beams.append(beam)
+    global FIRE_SOUND
+    if FIRE_SOUND is None:
+        FIRE_SOUND = pygame.mixer.Sound("assets/sounds/ghost-neutron.wav")
+        FIRE_SOUND.set_volume(0.5)
+    FIRE_SOUND.play()
 
 
 def check_and_trigger_player_death(player, villains, map_data, now_ms):

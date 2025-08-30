@@ -63,7 +63,7 @@ def try_move(entity, dx, dy, map_data):
     if dy != 0:
         remainder = entity.x % TILE_SIZE
         distance_to_edge = min(remainder, TILE_SIZE - remainder)
-        if distance_to_edge > 3:
+        if distance_to_edge > 4:
             return False
     if not in_bounds(tx, ty, map_data):
         return False
@@ -169,7 +169,7 @@ def blocks_upward(caller, dy, map_data, tx, ty):
 
 def on_ladder(entity, map_data):
     """
-    Check if the entity is currently on a ladder or vine.
+    Check if the entity is currently on a ladder
     :param entity:
     :param map_data:
     :return:
