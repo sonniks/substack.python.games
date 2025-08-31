@@ -3,15 +3,7 @@
 
 import pygame
 from loader import TILE_SIZE
-
-UI_HEIGHT = 96
-# FONT_PATH = "assets/fonts/8-bit-pusab.ttf"
-FONT_PATH = "assets/fonts/Eight-Bit Madness.ttf"
-SPRITESHEET_PATH = "assets/sprites/sheet.png"
-PADDING = 12
-ICON_SPACING = 8
-TEXT_COLOR = (255, 255, 255)
-BAR_BG = (0, 0, 0)
+from constants import UI_HEIGHT, FONT_PATH, SPRITESHEET_PATH, BAR_BG, TEXT_COLOR, PADDING, ICON_SPACING
 
 
 class ScoreDisplay:

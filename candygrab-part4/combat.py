@@ -6,8 +6,7 @@ from scanner import NON_ELIGIBLE
 from movement import get_tile_position
 from tilemap import player_cell
 from logger import conlog
-
-FIRE_SOUND = None
+from constants import *
 
 
 def handle_firing(player, map_data, villains, beams, now_ms, hud):

@@ -2,7 +2,7 @@
 
 import pygame
 from logger import conlog
-from loader import TILE_SIZE
+from constants import DEATH_ANIM_MS, DEATH_COOLDOWN_MS, TILE_SIZE
 from movement import (
     get_tile_position,
     get_target_tile,
@@ -10,9 +10,6 @@ from movement import (
     log_surrounding_tiles,
     maybe_snap_to_floor
 )
-
-DEATH_ANIM_MS = 3000
-DEATH_COOLDOWN_MS = 5000  # cannot die again for 5s after animation ends
 
 
 class Player:

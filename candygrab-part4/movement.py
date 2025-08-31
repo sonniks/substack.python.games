@@ -1,10 +1,8 @@
 # movement.py
 
-from loader import TILE_SIZE
+
 from logger import conlog
-
-
-FUDGE = 0 # No Longer Used?
+from constants import TILE_SIZE
 
 
 def get_tile_position(entity):

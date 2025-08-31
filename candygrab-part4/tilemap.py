@@ -2,18 +2,20 @@
 
 
 import pygame
-from loader import TILE_SIZE
+from constants import TILE_SIZE
 from spritesheet import load_spritesheet
 from movement import get_tile_position
 from scanner import _safe_cell
-from visualeffects import hue_shift_sprite
-
-
-SPRITESHEET_PATH = "assets/sprites/sheet.png"
-SHOW_TILE_COORDS = True
+from constants import SPRITESHEET_PATH, SHOW_TILE_COORDS
 
 
 def build_tilemap(map_data, tile_lookup):
+    """
+    Build a tilemap surface from map data and a tile lookup dictionary.
+    :param map_data:
+    :param tile_lookup:
+    :return:
+    """
     tiles = load_spritesheet(SPRITESHEET_PATH)
     surface = pygame.Surface(
         (len(map_data[0]) * TILE_SIZE, len(map_data) * TILE_SIZE + 96),
@@ -22,7 +24,13 @@ def build_tilemap(map_data, tile_lookup):
     font = pygame.font.SysFont("consolas", 10, bold=True) if SHOW_TILE_COORDS else None
     cols_in_sheet = sheet_width() // TILE_SIZE
 
+
     def _coords_for(ch):
+        """
+        Get the (sx, sy) coordinates in the spritesheet for the given character.
+        :param ch:
+        :return:
+        """
         entry = tile_lookup.get(ch)
         if entry is None:
             return None

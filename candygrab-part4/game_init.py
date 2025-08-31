@@ -8,11 +8,10 @@ from tilemap import build_tilemap
 from player import Player
 from scoredisplay import ScoreDisplay
 from villain import Villain
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-FPS = 60
-UI_OFFSET = 96
+
 
 
 @dataclass

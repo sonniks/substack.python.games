@@ -1,26 +1,23 @@
 # fire.py
 
+
 import pygame
-from loader import TILE_SIZE
 from spritesheet import TILE_SIZE as _CHECK_TILE  # sanity check same size
 from movement import get_tile_position
 from scanner import NON_ELIGIBLE  # {'L','D','U','E'}
-
-BEAM_DURATION_MS = 300  # ~0.3s
-SPRITESHEET_PATH = "assets/sprites/sheet.png"
-# Projectile sprite is sheet coordinate (0,2)
-PROJ_SX, PROJ_SY = 0, 2
+from constants import SPRITESHEET_PATH, BEAM_DURATION_MS, PROJ_SX, PROJ_SY, TILE_SIZE
 
 
 class FireBeam:
     """
-    Represents a short-lived projectile beam fired by the player.
+    Represents a short-lived beam projectile fired by the player.
     """
     def __init__(self, player, now_ms):
         self.spawn_ms = now_ms
         self.tiles = self._compute_tiles(player)
         self.sprite = self._load_projectile_sprite()
         self._alpha = 255
+
 
     def _compute_tiles(self, player):
         """
@@ -33,6 +30,7 @@ class FireBeam:
         # tiles from 1..3 in facing direction
         return [(pcx + step * i, pcy) for i in range(1, 4)]
 
+
     def _load_projectile_sprite(self):
         """
         Load and return the projectile sprite from the spritesheet.
@@ -41,6 +39,7 @@ class FireBeam:
         sheet = pygame.image.load(SPRITESHEET_PATH).convert_alpha()
         rect = pygame.Rect(PROJ_SX * TILE_SIZE, PROJ_SY * TILE_SIZE, TILE_SIZE, TILE_SIZE)
         return sheet.subsurface(rect)
+
 
     def apply_damage_once(self, villains, map_data, player, now_ms):
         """

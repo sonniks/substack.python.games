@@ -1,10 +1,13 @@
 # logger.py
 
+
 from datetime import datetime
+
 
 _last_message = None
 _repeat_count = 0
 _enable_logging = True
+
 
 def conlog(message):
     """

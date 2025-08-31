@@ -1,8 +1,8 @@
 # spritesheet.py
 
-import pygame
 
-TILE_SIZE = 32
+import pygame
+from constants import TILE_SIZE
 
 
 def load_spritesheet(path):

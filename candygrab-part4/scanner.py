@@ -4,13 +4,7 @@
 from typing import Iterable, Tuple, Set, List, Any
 from logger import conlog
 from movement import get_tile_position
-
-# Tiles where combat/impact checks are not eligible
-NON_ELIGIBLE = {'L', 'D', 'U', 'E'}
-
-# Default candy set; adjust if your tiles.csv uses different symbols
-DEFAULT_CANDY: Set[str] = {'@', '!', '#', '$'}
-
+from constants import *
 
 def _safe_cell(map_data: List[List[str]], cx: int, cy: int) -> str:
     """
@@ -126,50 +120,3 @@ def scan_world(map_data: List[List[str]], player, villains: Iterable, tile_looku
         if not remaining:
             # Hook for future stage progression
             conlog("[Scanner] All candy collected. Stage progression trigger pending.")
-
-
-def consume_candy_at(self, x: int, y: int) -> bool:
-    """
-    If the map at (x,y) contains a candy character, replace it with space and return True.
-    :param self:
-    :param x:
-    :param y:
-    :return:
-    """
-    # Prefer existing helpers if you have them
-    get_char = getattr(self, "get_char", None)
-    set_char = getattr(self, "set_char", None)
-    # Read current char
-    if callable(get_char):
-        ch = get_char(x, y)
-    else:
-        # Fallback if you do not have get_char
-        if y < 0 or y >= len(self.map):
-            return False
-        row = self.map[y]
-        if isinstance(row, str):
-            if x < 0 or x >= len(row):
-                return False
-            ch = row[x]
-        else:
-            if x < 0 or x >= len(row):
-                return False
-            ch = row[x]
-    if ch not in DEFAULT_CANDY:
-        return False
-    # Write space back using your setter if present
-    if callable(set_char):
-        set_char(x, y, ' ')
-    else:
-        row = self.map[y]
-        if isinstance(row, str):
-            r = list(row)
-            r[x] = ' '
-            self.map[y] = ''.join(r)
-        else:
-            self.map[y][x] = ' '
-    # If you cache a prebuilt surface and have a cell redraw hook, use it.
-    redraw_cell = getattr(self, "redraw_cell", None)
-    if callable(redraw_cell):
-        redraw_cell(x, y, ' ')
-    return True

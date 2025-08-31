@@ -4,14 +4,14 @@ import pygame
 from loader import TILE_SIZE
 from logger import conlog
 from visualeffects import hue_shift_sprite
+from constants import DISABLE_WINDOW_MS, DISABLE_DURATION_MS
 from movement import (
     get_tile_position, get_surrounding_tiles,
     maybe_snap_to_floor, try_move
 )
 from collections import deque
 
-DISABLE_WINDOW_MS = 2000
-DISABLE_DURATION_MS = 30000
+
 
 
 class Villain:
@@ -36,38 +36,82 @@ class Villain:
 
 
     def compute_speed(self, index, total, speed_multiplier=1.0):
+        """
+        Compute the movement speed for the villain based on its index and total count.
+        :param index:
+        :param total:
+        :param speed_multiplier:
+        :return:
+        """
         min_speed = 1.2
         max_speed = 1.8
         t = index / max(1, total - 1)
         return (min_speed + t * (max_speed - min_speed)) * speed_multiplier
 
+
     def _load_villain_anim(self, hue_shift):
+        """
+        Load and return the villain's animation frames with the specified hue shift.
+        :param hue_shift:
+        :return:
+        """
         sheet = pygame.image.load("assets/sprites/sheet.png").convert_alpha()
         base = [sheet.subsurface(pygame.Rect(i * TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE)) for i in range(4)]
         return [hue_shift_sprite(s, hue_shift) for s in base]
 
+
     def _load_disabled_sprite(self):
+        """
+        Load and return the sprite used when the villain is disabled.
+        :return:
+        """
         sheet = pygame.image.load("assets/sprites/sheet.png").convert_alpha()
         rect = pygame.Rect(5 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE)
         return sheet.subsurface(rect)
 
+
     def is_disabled(self):
+        """
+        Check if the villain is currently disabled.
+        :return:
+        """
         return self.disabled_until and pygame.time.get_ticks() < self.disabled_until
 
+
     def register_hit(self, now_ms):
+        """
+        Register a hit on the villain and update its disabled state if necessary.
+        :param now_ms:
+        :return:
+        """
         self.hit_times.append(now_ms)
         while self.hit_times and now_ms - self.hit_times[0] > DISABLE_WINDOW_MS:
             self.hit_times.popleft()
         if len(self.hit_times) >= 3 and not self.is_disabled():
             self.disabled_until = now_ms + DISABLE_DURATION_MS
 
+
     def handle_floor_collision(self, current_tile, cx, cy):
+        """
+        Handle collision with floor tiles.
+        :param current_tile:
+        :param cx:
+        :param cy:
+        :return:
+        """
         if current_tile == 'F':
             self.y -= 1.0
             return True
         return False
 
+
     def update(self, player, map_data):
+        """
+        Update the villain's state, including movement and animation.
+        :param player:
+        :param map_data:
+        :return:
+        """
         self.timer += 1
         now = pygame.time.get_ticks()
         # Wake-up warning 2 seconds before recovery
@@ -97,16 +141,27 @@ class Villain:
     def delta_to_align_x(self) -> int:
         """
         Return the number of pixels the villain is offset from perfect X alignment.
+        :return:
         """
         return int(self.x % TILE_SIZE)
 
     def delta_to_align_y(self) -> int:
         """
         Return the number of pixels the villain is offset from perfect Y alignment.
+        :return:
         """
         return int(self.y % TILE_SIZE)
 
+
     def _decide_movement(self, player, cx, cy, map_data):
+        """
+        Decide and execute movement towards the player.
+        :param player:
+        :param cx:
+        :param cy:
+        :param map_data:
+        :return:
+        """
         st = get_surrounding_tiles(self, map_data)
         conlog(f"{self.name} at tile ({cx},{cy}) sees: {st['locen']} {ord(st['locen'])}")
         if self.delta_to_align_x() > 1 and st['right'] != 'B' and st['left'] != 'B' and st['locen'] != ' ':
@@ -168,10 +223,12 @@ class Villain:
         if idax != 0:
             if st['loleft'] not in {'F', 'T'} and idax == -1:
                 conlog(f"no floor left {st['loleft']}")
-                return
+                idax = 1
+                # return
             if st['loright'] not in {'F', 'T'} and idax == 1:
                 conlog(f"no floor right {st['loright']}")
-                return
+                idax = -1
+                # return
             self.facing_left = idax > 0  # optional flip
             moved = try_move(self, idax, 0, map_data)
             if moved:
@@ -186,6 +243,11 @@ class Villain:
 
 
     def choose_snap(self, map_data):
+        """
+        Choose a direction to snap to the nearest floor tile if over empty space.
+        :param map_data:
+        :return:
+        """
         st = get_surrounding_tiles(self, map_data)
         cx, cy = get_tile_position(self)
         conlog(f"ALERT {self.name} is over empty space, cannot move.")
@@ -202,16 +264,24 @@ class Villain:
             self.teleport_to_tile(cx, cy - 1)
             return
 
+
     def teleport_to_tile(self, tile_x, tile_y):
         """
-        Instantly move the villain to a specific tile position.
+        Instantly move the villain to a specific tile position (if glitched due to high speed)
         :param tile_x: Tile X-coordinate
         :param tile_y: Tile Y-coordinate
         """
         self.x = tile_x * TILE_SIZE
         self.y = tile_y * TILE_SIZE
 
+
     def draw(self, surface, offset_y=0):
+        """
+        Draw the villain onto the given surface with vertical offset.
+        :param surface:
+        :param offset_y:
+        :return:
+        """
         if self.is_disabled():
             sprite = self.disabled_sprite
         else:
