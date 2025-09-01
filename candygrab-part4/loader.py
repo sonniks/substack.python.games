@@ -69,7 +69,7 @@ def load_level(all_levels, index, music_volume):
     if hue_shift:
         tilesheet = load_spritesheet("assets/sprites/sheet.png")
         sheet_cols = sheet_width() // TILE_SIZE
-        for ch in {'F', 'T', 'L', 'E', 'U'}:
+        for ch in {'F', 'T', 'L', 'E', 'U', 'B'}:
             entry = tile_lookup.get(ch)
             if entry and 'coords' in entry:
                 sx, sy = entry['coords']
