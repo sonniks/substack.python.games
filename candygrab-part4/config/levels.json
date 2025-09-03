@@ -1,0 +1,20 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "First Floor",
+      "map": "assets/maps/levelz.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/ghost-itm.xm",
+      "floor_hue_shift": 0.50
+    },
+    {
+      "id": 2,
+      "name": "Second Floor",
+      "map": "assets/maps/level2.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/ghosts.mod",
+      "floor_hue_shift": 0.25
+    }
+  ]
+}
