@@ -1,0 +1,14 @@
+D             P         D
+TFFFFFFFFFFFFFFFFFFFFFFFT
+L                       L
+L         B             L
+E         B             E
+TFFFFFFFFFFFFFFFFFFFFFFFT
+L                       L
+L          B            L
+E          B            E
+TFFFFFFFFFFFFFFFFFFFFFFFT
+L                       L
+L       B               L
+U       B               U
+FFFFFFFFFFFFFFFFFFFFFFFFF
