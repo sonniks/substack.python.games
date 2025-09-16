@@ -4,17 +4,12 @@ See details for part 2 ... https://sonnik.substack.com/p/sprite-sheet-part-2-deb
 
 See details for part 3 ... https://sonnik.substack.com/p/sprite-sheet-part-3-combat
 
-**Part 4:**  
--Start Screen  
--Level interstitial screen  
--Music added at various points in game  
--Sound effects  
--Fix combat safe zone on ladder  
--Fix for villains getting stuck approaching ladders  
--Villains now move faster on re-use of levels (eventual "kill leve")  
--Create constants module (prevent circular imports)
+See details for part 4 ... https://sonnik.substack.com/p/sprite-sheet-part-4-the-8-bit-experience
+
+**Part 5:**  
+-Release version
+-Added three new levels.  Note config.json
+-Debug player death removed, now acts as desired
+-Game over screen with option to restart.
 
 
-**TODO**  
--Player fatality  
--Bonus Lives for Player

@@ -30,7 +30,7 @@ def handle_firing(player, map_data, villains, beams, now_ms, hud):
     if newly_disabled:
         gained = 100 * newly_disabled
         hud.score += gained
-        conlog(f"[Combat] Disabled {newly_disabled} robot(s); +{gained} points. Total={hud.score}")
+        # conlog(f"[Combat] Disabled {newly_disabled} robot(s); +{gained} points. Total={hud.score}")
     beams.append(beam)
     global FIRE_SOUND
     if FIRE_SOUND is None:

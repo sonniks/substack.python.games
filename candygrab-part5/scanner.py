@@ -93,7 +93,8 @@ def scan_world(map_data: List[List[str]], player, villains: Iterable, tile_looku
         more = "" if len(candy_list) <= 6 else f" (+{len(candy_list)-6} more)"
         #conlog(f"[Scanner] Candy tiles: {preview}{more}")
     else:
-        conlog("[Scanner] Candy tiles: none found")
+        i = 0
+        # conlog("[Scanner] Candy tiles: none found")
         # This may be where to trigger stage progression in future
     # Checks for impact/attackable
     for v, vcx, vcy, vcell in vtiles:
@@ -111,12 +112,13 @@ def scan_world(map_data: List[List[str]], player, villains: Iterable, tile_looku
         gained = _score_for_char(pcell, tile_lookup)
         map_data[pcy][pcx] = ' '  # remove candy
         hud.score += gained
-        conlog(f"[Scanner] Player collected '{pcell}' for +{gained}. Score={hud.score}")
+        # conlog(f"[Scanner] Player collected '{pcell}' for +{gained}. Score={hud.score}")
         # If you have a helper to consume candy, use it
         if candy_sound:
             candy_sound.play()
         # After removal, check if any candy remains
         remaining = _find_all_candy_tiles(map_data, candy_chars)
         if not remaining:
+            i = 0
             # Hook for future stage progression
-            conlog("[Scanner] All candy collected. Stage progression trigger pending.")
+            # conlog("[Scanner] All candy collected. Stage progression trigger pending.")

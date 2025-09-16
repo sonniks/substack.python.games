@@ -11,9 +11,6 @@ from villain import Villain
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 
 
-
-
-
 @dataclass
 class HUDState:
     score: int = 0
@@ -28,7 +25,7 @@ def setup_screen():
     """
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Candy Grab Part 5")
+    pygame.display.set_caption("Candygrab")
     return screen, pygame.time.Clock()
 
 

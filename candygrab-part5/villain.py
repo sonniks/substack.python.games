@@ -163,14 +163,14 @@ class Villain:
         :return:
         """
         st = get_surrounding_tiles(self, map_data)
-        conlog(f"{self.name} at tile ({cx},{cy}) sees: {st['locen']} {ord(st['locen'])}")
+        # conlog(f"{self.name} at tile ({cx},{cy}) sees: {st['locen']} {ord(st['locen'])}")
         if self.delta_to_align_x() > 1 and st['right'] != 'B' and st['left'] != 'B' and st['locen'] != ' ':
             if self.last_dx != 0 :
                 #conlog("not aligned x")
                 try_move(self, self.last_dx, 0, map_data)
             return
         if st['locen'] == ' ':
-            conlog(f"{self.name} trying to snap to floor")
+            # conlog(f"{self.name} trying to snap to floor")
             self.choose_snap(map_data)
             return
         if self.delta_to_align_y() > 1:
@@ -222,22 +222,24 @@ class Villain:
         self.last_dy = iday
         if idax != 0:
             if st['loleft'] not in {'F', 'T'} and idax == -1:
-                conlog(f"no floor left {st['loleft']}")
+                # conlog(f"no floor left {st['loleft']}")
                 idax = 1
                 # return
             if st['loright'] not in {'F', 'T'} and idax == 1:
-                conlog(f"no floor right {st['loright']}")
+                # conlog(f"no floor right {st['loright']}")
                 idax = -1
                 # return
             self.facing_left = idax > 0  # optional flip
             moved = try_move(self, idax, 0, map_data)
             if moved:
-                conlog(f"{self.name} moved horizontally: idax={idax}")
+                i = 0
+                # conlog(f"{self.name} moved horizontally: idax={idax}")
             return
         if iday != 0:
             moved = try_move(self, 0, iday, map_data)
             if moved:
-                conlog(f"{self.name} moved vertically: iday={iday}")
+                i = 0
+                # conlog(f"{self.name} moved vertically: iday={iday}")
             return
         # conlog(f"{self.name} did not move this frame.")
 

@@ -44,7 +44,6 @@ def run_game_loop(screen, clock, all_levels, candy_sound, music_volume):
     was_dying = False
     current_level_index = 0
     loop_count = 0
-
     # Initial load
     level, map_data, tile_lookup = load_level(all_levels, current_level_index, music_volume)
     tile_surface = build_tilemap(map_data, tile_lookup)
@@ -54,7 +53,6 @@ def run_game_loop(screen, clock, all_levels, candy_sound, music_volume):
     hud.level_number = level["id"]
     villains = spawn_villains(map_data)
     beams = []
-
     while True:
         fire_pressed = handle_events()
         keys = pygame.key.get_pressed()
@@ -67,7 +65,6 @@ def run_game_loop(screen, clock, all_levels, candy_sound, music_volume):
         update_beams(beams, now)
         check_and_trigger_player_death(player, villains, map_data, now)
         scan_world(map_data, player, villains, tile_lookup, hud, candy_sound=candy_sound)
-
         # Level complete
         if not any(ch in row for row in map_data for ch in {'@', '!', '#', '$'}):
             show_level_complete(screen, hud.level_number, hud.lives, music_volume)
@@ -82,10 +79,8 @@ def run_game_loop(screen, clock, all_levels, candy_sound, music_volume):
             villains = spawn_villains(map_data, speed_multiplier=speed_multiplier)
             beams.clear()
             hud.level_number = level["id"] + loop_count * len(all_levels)
-
         tile_surface = build_tilemap(map_data, tile_lookup)
         render_frame(screen, tile_surface, player, villains, score_display, hud, beams)
-
         # Player death & level restart logic
         death_now = player.is_dying()
         if was_dying and not death_now:
@@ -128,12 +123,15 @@ def run_game_loop(screen, clock, all_levels, candy_sound, music_volume):
         clock.tick(FPS)
 
 
-
-
 def restart_level(all_levels, current_level_index, music_volume, screen_width, hud):
     """
-    Reload the current level from disk, returning fresh copies of all game objects.
-    Retains the current number of lives.
+    Restart the current level, preserving lives and score.
+    :param all_levels:
+    :param current_level_index:
+    :param music_volume:
+    :param screen_width:
+    :param hud:
+    :return:
     """
     level, map_data, tile_lookup = load_level(all_levels, current_level_index, music_volume)
     tile_surface = build_tilemap(map_data, tile_lookup)

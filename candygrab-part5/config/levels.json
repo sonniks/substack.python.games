@@ -1,0 +1,44 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "First Floor",
+      "map": "assets/maps/level1.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/ghost-itm.xm",
+      "floor_hue_shift": 0.60
+    },
+    {
+      "id": 2,
+      "name": "Second Floor",
+      "map": "assets/maps/level2.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/ghosts.mod",
+      "floor_hue_shift": 0.20
+    },
+    {
+      "id": 3,
+      "name": "Third Floor",
+      "map": "assets/maps/level3.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/groovy_lemon_.mod",
+      "floor_hue_shift": 0.75
+    },
+    {
+      "id": 4,
+      "name": "Fourth Floor",
+      "map": "assets/maps/level4.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/groovy_to_the_bone.mod",
+      "floor_hue_shift": 0.40
+    },
+    {
+      "id": 5,
+      "name": "Fifth Floor",
+      "map": "assets/maps/level5.txt",
+      "lookup": "assets/lookups/tiles.csv",
+      "music": "assets/music/robot3.mod",
+      "floor_hue_shift": 0.90
+    }
+  ]
+}

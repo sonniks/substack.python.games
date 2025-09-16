@@ -45,7 +45,7 @@ def try_move(entity, dx, dy, map_data):
     force_up = 1  # pixels to nudge upward if standing in a floor
     tiles = get_surrounding_tiles(entity, map_data)
     if tiles['center'] == 'F':
-        conlog(f"[{entity.name}] Standing on floor, nudging up by {force_up} pixels")
+        # conlog(f"[{entity.name}] Standing on floor, nudging up by {force_up} pixels")
         entity.y -= force_up
         return True
     if dx == 0 and dy == 0:
@@ -110,7 +110,6 @@ def blocks_lateral(caller, dx, map_data, tx, ty, cx, cy):
             return True
         if loright not in ['F', 'T'] and dx == 1:
             return True
-
     #if map_data[ty][tx] == 'B':
     #    conlog(f"[{type(caller).__name__}] Blocked: target is B")
     #    return True
@@ -118,10 +117,10 @@ def blocks_lateral(caller, dx, map_data, tx, ty, cx, cy):
     if entity_is_tile_aligned_horizontally(caller):
         if caller.name != "Player":
             if dx == -1 and left in ['B']:
-                conlog(f"[{caller.name}] Blocked: target left is B")
+                # conlog(f"[{caller.name}] Blocked: target left is B")
                 return True
             if dx == 1 and right in ['B']:
-                conlog(f"[{caller.name}] Blocked: target right is B")
+                # conlog(f"[{caller.name}] Blocked: target right is B")
                 return True
     if center in ['T']:
         return True
@@ -278,6 +277,6 @@ def entity_is_tile_aligned_horizontally(entity):
 
 def entity_is_tile_aligned_vertically(entity):
     remainder = entity.y % TILE_SIZE
-    conlog(f"remainder={remainder}")
+    # conlog(f"remainder={remainder}")
     # return remainder <= 3 or remainder >= (TILE_SIZE - 3)
     return remainder <= 3
