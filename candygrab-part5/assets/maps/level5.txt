@@ -1,0 +1,17 @@
+ P  D      D   !V D    D
+ FFFT      TFFFFFFT FFFT
+    L      L      L    L
+    U   V  U      U  D U
+    FFFFFFFF      FFFTFF
+                     L
+        D        V   E
+        TFFFFFFFFFFFFT
+        L            L
+        E    @       E
+        TFFFFFFFFFFFFT
+        L            L
+    #   U     V      U $
+ FFFFFFFFFFFFFFFFFFFFFFF
+
+
+0123456789012345678901234567890123456789
